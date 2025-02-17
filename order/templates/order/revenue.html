@@ -1,0 +1,14 @@
+{% extends 'order/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<center>
+    <form method="get">
+        <label class="col-md-12 fs-5" for="date">Выберите дату:</label>
+        <input class="col-md-2 fs-5" type="date" name="date" id="date" value="{{ selected_date }}">
+        <button class="btn btn-outline-secondary">Рассчитать</button>
+    </form>
+
+    <p class="col-md-12 fs-5"> Выручка за {{ selected_date }}: {{ total_revenue }} ₽</p>
+</center>
+
+{% endblock %}

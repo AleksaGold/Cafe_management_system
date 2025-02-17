@@ -1,0 +1,15 @@
+{% extends 'order/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<center>
+    {% if searched %}
+    <h1> Ты ищешь стол с номером или статусом {{ searched }} </h1>
+    <br/>
+    {% for order in orders %}
+    <a href="{% url 'order:order_detail' order.pk  %}">{{ order }}</a><br/>
+    {% endfor %}
+    {% else %}
+    <h1> Ничего не введено <h1>
+        {% endif %}
+</center>
+{% endblock %}

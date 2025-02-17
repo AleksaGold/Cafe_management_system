@@ -1,0 +1,31 @@
+{% extends 'order/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="container">
+    <div class="row mt-4 mb-2">
+        <div class="col-6">
+            <form class="row" enctype="multipart/form-data">
+                <div class="card">
+                    {{ form | crispy }}
+                    <div class="card-header">
+                        <h3 class="card-title">Подробнее о заказе: {{ object.subject }} </h3>
+                        <div class="card-body">
+                            <p class="card-text"> ID заказа: {{ object.pk }}</p>
+                            <p class="card-text"> Номер стола: {{ object.table_number }} </p>
+                            <p class="card-text"> Общая стоимость заказа: {{ object.total_price }} </p>
+                            <p class="card-text"> Статус заказа: {{ object.get_status_display }} </p>
+                            <a class="btn btn-sm btn-outline-secondary"
+                               href="{% url 'order:order_update' object.pk %}" role="button">Редактировать
+                                заказ</a>
+                            <a class="btn btn-sm btn-outline-secondary"
+                               href="{% url 'order:order_delete' object.pk %}" role="button">Удалить
+                                заказ</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

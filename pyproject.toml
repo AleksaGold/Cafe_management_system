@@ -12,6 +12,8 @@ python-dotenv = "^1.0.1"
 black = "^25.1.0"
 isort = "^6.0.0"
 psycopg2-binary = "^2.9.10"
+ipython = "^8.32.0"
+crispy-bootstrap5 = "^2024.10"
 
 
 [build-system]

@@ -1,0 +1,12 @@
+<div class="navbar navbar-dark bg-dark shadow-sm">
+    <div class="container">
+        <a href="#" class="navbar-brand d-flex align-items-center">
+        </a>
+        <form class="d-flex w-50" method=POST action="{% url 'order:order_search' %}">
+            {% csrf_token %}
+            <input class="form-control me-2" type="search"
+                   placeholder="Поиск заказа по номеру стола или статусу" aria-label="Search" name="searched">
+            <button class="btn btn-outline-secondary" type="submit">Поиск</button>
+        </form>
+    </div>
+</div>

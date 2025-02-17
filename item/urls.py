@@ -5,5 +5,7 @@ from item.apps import ItemConfig
 app_name = ItemConfig.name
 
 urlpatterns = [
-    path("",),
+    path(
+        "",
+    )
 ]
