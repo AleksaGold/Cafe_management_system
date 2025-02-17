@@ -2,11 +2,12 @@ from django.db.models import Q, Sum
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.utils.timezone import now
-from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
-                                  TemplateView, UpdateView)
+from django.views.generic import (CreateView, DeleteView, DetailView, ListView, UpdateView)
+from rest_framework import viewsets
 
 from order.forms import OrderForm
 from order.models import Order
+from order.serializers import OrderSerializer, OrderUpdateSerializer
 from order.services import get_total_price
 
 
@@ -88,3 +89,18 @@ def revenue_view(request):
         "order/revenue.html",
         {"total_revenue": total_revenue, "selected_date": date},
     )
+
+
+class OrderViewSet(viewsets.ModelViewSet):
+    """Вьюсет для работы с моделью Order."""
+
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+    filterset_fields = ("status",)
+
+    def get_serializer_class(self):
+        """Возвращает класс сериализатора, который будет использоваться для обработки текущего запроса."""
+
+        if self.action in ["update", "partial_update"]:
+            return OrderUpdateSerializer
+        return OrderSerializer
