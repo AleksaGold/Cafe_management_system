@@ -1,8 +1,11 @@
+from datetime import datetime
+
 from django.db.models import Q, Sum
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.utils.timezone import now
-from django.views.generic import (CreateView, DeleteView, DetailView, ListView, UpdateView)
+from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
+                                  UpdateView)
 from rest_framework import viewsets
 
 from order.forms import OrderForm
@@ -76,7 +79,15 @@ def search_order_view(request):
 def revenue_view(request):
     """Представление для расчета выручки за определенную дату."""
 
-    date = request.GET.get("date", now().date())
+    date_str = request.GET.get("date")
+
+    try:
+        date = (
+            datetime.strptime(date_str, "%Y-%m-%d").date() if date_str else now().date()
+        )
+    except ValueError:
+        date = now().date()
+
     total_revenue = (
         Order.objects.filter(status="оплачено", created_at__date=date).aggregate(
             total=Sum("total_price")

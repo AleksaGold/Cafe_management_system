@@ -13,6 +13,11 @@
                         <div class="card-body">
                             <p class="card-text"> ID заказа: {{ object.pk }}</p>
                             <p class="card-text"> Номер стола: {{ object.table_number }} </p>
+                            <p class="card-text"> Список блюд:
+                                {% for item in object.items.all %}
+                                <li>{{ item.name }} - {{ item.price }}</li>
+                                {% endfor %}
+                            </p>
                             <p class="card-text"> Общая стоимость заказа: {{ object.total_price }} </p>
                             <p class="card-text"> Статус заказа: {{ object.get_status_display }} </p>
                             <a class="btn btn-sm btn-outline-secondary"

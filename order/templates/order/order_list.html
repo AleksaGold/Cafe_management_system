@@ -2,33 +2,34 @@
 {% load crispy_forms_tags %}
 {% block content %}
 
-<div class="row align-items-md-stretch">
-    {% for object in object_list %}
-    <div class="col-md-4">
-        <div class="container">
-            <div class="row g-0 border rounded overflow-hidden mt-4 flex-md-row mb-2 shadow-sm h-md-250 position-relative">
-                <form class="col p-4 d-flex flex-column position-static">
-                    {{ form | crispy }}
-                    <h7 class="card-text">
-                        <p class="card-text"> ID заказа: {{ object.pk }}</p>
-                        <p class="card-text"> Номер стола: {{ object.table_number }} </p>
-                        <p class="card-text"> Список блюд:
-                            {% for item in object.items.all %}
-                            <li>{{ item.name }}</li>
-                            {% endfor %}
-                        </p>
-                        <p class="card-text"> Общая стоимость заказа: {{ object.total_price }} </p>
-                        <p class="card-text"> Статус заказа: {{ object.get_status_display }} </p></h7>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="btn-group">
-                            <a class="btn btn-sm btn-outline-secondary"
-                               href="{% url 'order:order_detail' object.pk %}" role="button">Подробнее</a>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    {% endfor %}
+<div class="container mt-4">
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>ID заказа</th>
+                <th>Номер стола</th>
+                <th>Список блюд</th>
+                <th>Общая стоимость</th>
+                <th>Статус заказа</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for object in object_list %}
+            <tr>
+                <td>{{ object.pk }}</td>
+                <td>{{ object.table_number }}</td>
+                <td>
+                    <ul class="list-unstyled">
+                        {% for item in object.items.all %}
+                        <li>{{ item.name }} - {{ item.price }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+                <td>{{ object.total_price }}</td>
+                <td>{{ object.get_status_display }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 {% endblock %}

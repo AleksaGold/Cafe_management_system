@@ -1,11 +1,10 @@
 from django.urls import path
-
 from rest_framework.routers import DefaultRouter
 
 from order.apps import OrderConfig
 from order.views import (OrderCreateView, OrderDeleteView, OrderDetailView,
-                         OrderListView, OrderUpdateView, revenue_view,
-                         search_order_view, OrderViewSet)
+                         OrderListView, OrderUpdateView, OrderViewSet,
+                         revenue_view, search_order_view)
 
 app_name = OrderConfig.name
 
